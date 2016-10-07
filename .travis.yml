@@ -1,7 +1,17 @@
 env:
   - distro: debianjessie
     init: "/sbin/init"
-    run_opts: ''
+    run_opts: ""
+    playbook: test.yml
+    redis_daemon: redis-server
+  - distro: ubuntutrusty
+    init: "/sbin/init"
+    run_opts: ""
+    playbook: test.yml
+    redis_daemon: redis-server
+  - distro: ubuntuxenial
+    init: "/sbin/init"
+    run_opts: ""
     playbook: test.yml
     redis_daemon: redis-server
 
