@@ -38,9 +38,9 @@ script:
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
   # test role tasks
-  - docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl --no-pager status ${redis_daemon}
-  - docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl --no-pager stop ${redis_daemon}
-  - docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl --no-pager start ${redis_daemon}
+  - docker exec --tty "$(cat ${container_id})" env TERM=xterm service ${redis_daemon} status
+  - docker exec --tty "$(cat ${container_id})" env TERM=xterm service ${redis_daemon} stop
+  - docker exec --tty "$(cat ${container_id})" env TERM=xterm service ${redis_daemon} start
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
