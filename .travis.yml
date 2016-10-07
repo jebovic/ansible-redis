@@ -24,7 +24,7 @@ before_install:
 script:
   # run container
   - container_id=$(mktemp)
-  - docker run --detach --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro -p 80:80 -p 443:443 -p 8888:8888 --volume="${PWD}":/etc/ansible/roles/role_under_test:ro ${run_opts} jebovic/${distro}-ansible:latest "${init}" > "${container_id}"
+  - docker run --detach --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/etc/ansible/roles/role_under_test:ro ${run_opts} jebovic/${distro}-ansible:latest "${init}" > "${container_id}"
   # syntax checking
   - docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook} --syntax-check
   # test role
@@ -38,9 +38,9 @@ script:
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
   # test role tasks
-  - docker exec --tty "$(cat ${container_id})" env TERM=xterm service ${redis_daemon} status
-  - docker exec --tty "$(cat ${container_id})" env TERM=xterm service ${redis_daemon} stop
-  - docker exec --tty "$(cat ${container_id})" env TERM=xterm service ${redis_daemon} start
+  - docker exec "$(cat ${container_id})" env TERM=xterm service ${redis_daemon} status
+  - docker exec "$(cat ${container_id})" env TERM=xterm service ${redis_daemon} stop
+  - docker exec "$(cat ${container_id})" env TERM=xterm service ${redis_daemon} start
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
