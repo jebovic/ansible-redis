@@ -41,6 +41,8 @@ script:
   - docker exec "$(cat ${container_id})" env TERM=xterm service ${redis_daemon} status
   - docker exec "$(cat ${container_id})" env TERM=xterm service ${redis_daemon} stop
   - docker exec "$(cat ${container_id})" env TERM=xterm service ${redis_daemon} start
+  - docker exec "$(cat ${container_id})" env TERM=xterm ${redis_daemon} --version
+  - docker exec "$(cat ${container_id})" env TERM=xterm redis-cli --version
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
