@@ -17,6 +17,7 @@
     group: root
     mode: 0644
   notify: restart redis
+  tags: redis_config
 
 - name: service start
   service:

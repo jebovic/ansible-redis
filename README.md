@@ -8,7 +8,7 @@ Install and configure Redis
 Role Variables
 --------------
 
-```
+```yaml
 # Redis basic configuration
 redis_packages:
   - redis-server
@@ -45,11 +45,16 @@ redis_includes: []
 Example Playbook
 ----------------
 
+```yaml
+- hosts: servers
+  roles:
+     - { role: jebovic.redis }
 ```
-    - hosts: servers
-      roles:
-         - { role: jebovic.redis }
-```
+
+Tags
+----
+
+* redis_config : only update config and restart service
 
 License
 -------
